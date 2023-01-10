@@ -18,6 +18,13 @@
     <widget class="QComboBox" name="project_list"/>
    </item>
    <item>
+    <widget class="QLineEdit" name="task_title">
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QTextEdit" name="task_text_edit"/>
    </item>
    <item>
@@ -25,14 +32,14 @@
      <item>
       <widget class="QPushButton" name="cancel_button">
        <property name="text">
-        <string>PushButton</string>
+        <string>Cancel</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="add_button">
        <property name="text">
-        <string>PushButton</string>
+        <string>Add</string>
        </property>
       </widget>
      </item>

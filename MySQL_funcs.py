@@ -51,10 +51,19 @@ def execute_query(connection, query):
     except Error as err:
         print(f"Error: '{err}'")
 
+def read_query(connection, query):
+    cursor = connection.cursor()
+    result = None
+    try:
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
+    except Error as err:
+        print(f"Error: '{err}'")
+
 host_name = "localhost"
 user_name = "root"
 user_password = "Kq4BcQ6yzasFQ3wviGEJ"
-create_server_connection(host_name, user_name, user_password)
 
 #queries for creating tables
 create_teacher_table = """
