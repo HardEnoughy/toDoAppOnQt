@@ -26,6 +26,10 @@ class Project(QWidget, Ui_add_task_widget):
         id = self.data.get_id()
         return(id[0][0])
     
+    def get_first_id(self):
+        id = self.data.get_id()
+        return(id[-1][0])
+    
     def setup_project_list(self):
         projects = self.data.get_projects_names()[0]
         for project in projects:
@@ -42,7 +46,7 @@ class Project(QWidget, Ui_add_task_widget):
             task = Task(self.last_id, task_name, task_text, self.name)
             task.add_to_database()
             self.close()
-
+    
 
 # app = QApplication()
 # project = Project("today")

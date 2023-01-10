@@ -74,13 +74,20 @@ class Ui_main_window(object):
 
         self.verticalLayout_4.addWidget(self.tasks_overview_widget)
 
+        self.done_button = QPushButton(self.main_layout)
+        self.done_button.setObjectName(u"done_button")
+
+        self.verticalLayout_4.addWidget(self.done_button)
+
 
         self.horizontalLayout_5.addLayout(self.verticalLayout_4)
 
         main_window.setCentralWidget(self.main_layout)
-        self.toolBar = QToolBar(main_window)
-        self.toolBar.setObjectName(u"toolBar")
-        main_window.addToolBar(Qt.TopToolBarArea, self.toolBar)
+        self.tool_bar = QToolBar(main_window)
+        self.tool_bar.setObjectName(u"tool_bar")
+        self.tool_bar.setMinimumSize(QSize(0, 20))
+        self.tool_bar.setMovable(False)
+        main_window.addToolBar(Qt.TopToolBarArea, self.tool_bar)
 
         self.retranslateUi(main_window)
 
@@ -92,6 +99,7 @@ class Ui_main_window(object):
         self.today.setText(QCoreApplication.translate("main_window", u"Today", None))
         self.left_arrow.setText(QCoreApplication.translate("main_window", u"PushButton", None))
         self.right_arrow.setText(QCoreApplication.translate("main_window", u"PushButton", None))
-        self.toolBar.setWindowTitle(QCoreApplication.translate("main_window", u"toolBar", None))
+        self.done_button.setText(QCoreApplication.translate("main_window", u"Done", None))
+        self.tool_bar.setWindowTitle(QCoreApplication.translate("main_window", u"toolBar", None))
     # retranslateUi
 
