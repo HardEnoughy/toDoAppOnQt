@@ -12,7 +12,7 @@ class SqlFuncs():
         query = f"""
         CREATE TABLE {self.project_name} (
             task_id INT PRIMARY KEY,
-            task_name VARCHAR(40),
+            task_name VARCHAR(40) NOT NULL,
             task_text VARCHAR(2000) NOT NULL,
             date_added DATE
         );

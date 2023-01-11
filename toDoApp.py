@@ -3,6 +3,7 @@ from PySide6.QtGui import QAction
 from ui_to_do import Ui_main_window
 import sql_funcs_for_to_do_app as sql
 from project import Project
+from add_project import NewProject
 
 class ToDoApp(QMainWindow, Ui_main_window):
     def __init__(self):
@@ -22,14 +23,22 @@ class ToDoApp(QMainWindow, Ui_main_window):
         #toolbar settings
         self.add_new_task_action = QAction("add new task")
         self.tool_bar.addAction(self.add_new_task_action)
+        self.add_new_project_action = QAction("add new project")
+        self.tool_bar.addAction(self.add_new_project_action)
+        self.refresh_projects_action = QAction("refresh projects")
+        self.tool_bar.addAction(self.refresh_projects_action)
 
         #connecting actions
         self.add_new_task_action.triggered.connect(self.open_add_task_widget)
+        self.add_new_project_action.triggered.connect(self.create_new_project)
+        self.refresh_projects_action.triggered.connect(self.refresh_project_tab)
+    
+    def print_something(self):
+        print("Some sort of griberish")
     
     def show_task(self):
         try:
             self.project = Project(self.name)
-            self.name = self.project.project_list.currentText()
             text = self.project.get_tasks_texts()[self.index][0]
             title = self.project.get_tasks_titles()[self.index][0]
             self.task_title.setText(title)
@@ -64,6 +73,13 @@ class ToDoApp(QMainWindow, Ui_main_window):
     def show_blank_page(self):
         self.task_title.setText('')
         self.task_window.setText('')
+    
+    def create_new_project(self):
+        self.window = NewProject()
+        self.window.show() 
+    
+    def refresh_project_tab(self):
+        pass
 
 
 app = QApplication()

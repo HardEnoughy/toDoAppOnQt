@@ -31,9 +31,10 @@ class Project(QWidget, Ui_add_task_widget):
         return id[-1][0] if id else 0
     
     def setup_project_list(self):
-        projects = self.data.get_projects_names()[0]
+        projects = self.data.get_projects_names()
+        print(projects)
         for project in projects:
-            self.project_list.addItem(project)
+            self.project_list.addItem(project[0])
     
     def exit(self):
         self.close()
