@@ -13,9 +13,9 @@ class ToDoApp(QMainWindow, Ui_main_window):
         self.project = Project(self.name)
         self.index = 0
         self.projects_list = ['today']
-        self.current_id = self.project.get_first_id()
         self.show_task()
         self.refresh_project_tab()
+        self.current_id = 1
 
         #connecting buttons
         self.left_arrow.clicked.connect(self.previous_task)
@@ -57,12 +57,10 @@ class ToDoApp(QMainWindow, Ui_main_window):
                 self.show_blank_page()
     
     def next_task(self):
-        self.current_id += 1
         self.index += 1
         self.show_task()
 
     def previous_task(self):
-        self.current_id -= 1
         self.index -= 1
         self.show_task()
     
@@ -70,6 +68,9 @@ class ToDoApp(QMainWindow, Ui_main_window):
         self.project.show()
     
     def finish_task(self):
+        titles = self.project.get_tasks_titles()
+        self.current_id = sql.SqlFuncs(self.name).get_one_id(titles[self.index][0])[0][0]
+        print(self.current_id)
         sql.SqlFuncs(self.name).remove_task(self.current_id)
         self.show_task()
     

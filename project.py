@@ -42,6 +42,7 @@ class Project(QWidget, Ui_add_task_widget):
     def add_task(self):
         task_name = self.task_title.text()
         task_text = self.task_text_edit.toPlainText()
+        self.name = self.project_list.currentText()
         if task_name and task_text:
             self.last_id += 1
             task = Task(self.last_id, task_name, task_text, self.name)

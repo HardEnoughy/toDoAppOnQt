@@ -73,6 +73,13 @@ class SqlFuncs():
         SELECT task_name FROM {self.project_name}
         """
         return(MySQL_funcs.read_query(self.connection, query))
+    
+    def get_one_id(self, title):
+        query = f"""
+        SELECT task_id FROM {self.project_name}
+        WHERE task_name = '{title}';
+        """
+        return(MySQL_funcs.read_query(self.connection, query))
 
 # sql = SqlFuncs("today")
 # sql.insert_task()
