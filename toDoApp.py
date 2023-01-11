@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QMainWindow, QApplication
+from PySide6.QtWidgets import QMainWindow, QApplication, QPushButton
 from PySide6.QtGui import QAction
 from ui_to_do import Ui_main_window
 import sql_funcs_for_to_do_app as sql
@@ -12,13 +12,16 @@ class ToDoApp(QMainWindow, Ui_main_window):
         self.name = 'today'
         self.project = Project(self.name)
         self.index = 0
+        self.projects_list = ['today']
         self.current_id = self.project.get_first_id()
         self.show_task()
+        self.refresh_project_tab()
 
         #connecting buttons
         self.left_arrow.clicked.connect(self.previous_task)
         self.right_arrow.clicked.connect(self.next_task)
         self.done_button.clicked.connect(self.finish_task)
+        self.today.clicked.connect(self.change_current_project)
 
         #toolbar settings
         self.add_new_task_action = QAction("add new task")
@@ -79,7 +82,20 @@ class ToDoApp(QMainWindow, Ui_main_window):
         self.window.show() 
     
     def refresh_project_tab(self):
-        pass
+        projects = sql.SqlFuncs(self.name).get_projects_names()
+        if len(projects) > 1:
+            for i in range(0, len(projects)):
+                if projects[i][0] in self.projects_list:
+                    continue
+                button = QPushButton(projects[i][0])
+                self.projects_tab.addWidget(button)
+                button.clicked.connect(self.change_current_project)
+                self.projects_list.append(projects[i][0])
+    
+    def change_current_project(self):
+        button = self.sender()
+        self.name = button.text()
+        self.show_task()
 
 
 app = QApplication()
