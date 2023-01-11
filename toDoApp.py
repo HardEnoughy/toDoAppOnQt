@@ -10,6 +10,7 @@ class ToDoApp(QMainWindow, Ui_main_window):
         self.setupUi(self)
         self.name = 'today'
         self.project = Project(self.name)
+        self.index = 0
         self.current_id = self.project.get_first_id()
         self.show_task()
 
@@ -27,23 +28,30 @@ class ToDoApp(QMainWindow, Ui_main_window):
     
     def show_task(self):
         try:
-            self.name = self.project.project_list.currentText()
             self.project = Project(self.name)
-            text = self.project.get_tasks_texts()[self.current_id - 1][0]
-            title = self.project.get_tasks_titles()[self.current_id - 1][0]
+            self.name = self.project.project_list.currentText()
+            text = self.project.get_tasks_texts()[self.index][0]
+            title = self.project.get_tasks_titles()[self.index][0]
             self.task_title.setText(title)
             self.task_window.setText(text)
         except Exception:
             print("error when trying to show task")
             self.current_id = self.project.get_first_id()
-            self.show_task()
+            self.index = 0
+            try:
+                text = self.project.get_tasks_texts()[self.index]
+                self.show_task()
+            except:
+                self.show_blank_page()
     
     def next_task(self):
         self.current_id += 1
+        self.index += 1
         self.show_task()
 
     def previous_task(self):
         self.current_id -= 1
+        self.index -= 1
         self.show_task()
     
     def open_add_task_widget(self):
@@ -52,6 +60,10 @@ class ToDoApp(QMainWindow, Ui_main_window):
     def finish_task(self):
         sql.SqlFuncs(self.name).remove_task(self.current_id)
         self.show_task()
+    
+    def show_blank_page(self):
+        self.task_title.setText('')
+        self.task_window.setText('')
 
 
 app = QApplication()

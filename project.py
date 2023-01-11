@@ -24,11 +24,11 @@ class Project(QWidget, Ui_add_task_widget):
     
     def get_last_id(self):
         id = self.data.get_id()
-        return(id[0][0])
+        return id[0][0] if id else 0
     
     def get_first_id(self):
         id = self.data.get_id()
-        return(id[-1][0])
+        return id[-1][0] if id else 0
     
     def setup_project_list(self):
         projects = self.data.get_projects_names()[0]
