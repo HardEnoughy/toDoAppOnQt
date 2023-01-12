@@ -30,14 +30,26 @@ class ToDoApp(QMainWindow, Ui_main_window):
         self.tool_bar.addAction(self.add_new_project_action)
         self.refresh_projects_action = QAction("refresh projects")
         self.tool_bar.addAction(self.refresh_projects_action)
+        self.delete_project_action = QAction("delete current project")
+        self.tool_bar.addAction(self.delete_project_action)
 
         #connecting actions
         self.add_new_task_action.triggered.connect(self.open_add_task_widget)
         self.add_new_project_action.triggered.connect(self.create_new_project)
         self.refresh_projects_action.triggered.connect(self.refresh_project_tab)
+        self.delete_project_action.triggered.connect(self.delete_project)
     
     def print_something(self):
         print("Some sort of griberish")
+    
+    def delete_project(self):
+        if self.name != 'today':
+            data = sql.SqlFuncs(self.name)
+            data.delete_project_table()
+            self.projects_list.remove(self.name)
+            self.name = 'today'
+            self.refresh_project_tab()
+            self.show_task()
     
     def show_task(self):
         try:
@@ -95,7 +107,7 @@ class ToDoApp(QMainWindow, Ui_main_window):
     
     def change_current_project(self):
         button = self.sender()
-        self.name = button.text()
+        self.name = button.text().lower()
         self.show_task()
 
 
