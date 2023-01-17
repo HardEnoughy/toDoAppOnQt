@@ -120,9 +120,3 @@ class ToDoApp(QMainWindow, Ui_main_window):
         button = self.sender()
         self.name = button.text().lower()
         self.show_task()
-
-
-app = QApplication()
-window = ToDoApp()
-window.show()
-app.exec()
