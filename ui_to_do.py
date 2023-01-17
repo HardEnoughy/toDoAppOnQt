@@ -18,6 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLineEdit, QMainWindow,
     QPushButton, QSizePolicy, QTextEdit, QToolBar,
     QVBoxLayout, QWidget)
+import rc_resource
 
 class Ui_main_window(object):
     def setupUi(self, main_window):
@@ -53,6 +54,10 @@ class Ui_main_window(object):
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.left_arrow = QPushButton(self.tasks_overview_widget)
         self.left_arrow.setObjectName(u"left_arrow")
+        icon = QIcon()
+        icon.addFile(u":/images/left_arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.left_arrow.setIcon(icon)
+        self.left_arrow.setFlat(True)
 
         self.horizontalLayout_4.addWidget(self.left_arrow)
 
@@ -64,6 +69,10 @@ class Ui_main_window(object):
 
         self.right_arrow = QPushButton(self.tasks_overview_widget)
         self.right_arrow.setObjectName(u"right_arrow")
+        icon1 = QIcon()
+        icon1.addFile(u":/images/right_arrow.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.right_arrow.setIcon(icon1)
+        self.right_arrow.setFlat(True)
 
         self.horizontalLayout_4.addWidget(self.right_arrow)
 
@@ -93,8 +102,14 @@ class Ui_main_window(object):
     def retranslateUi(self, main_window):
         main_window.setWindowTitle(QCoreApplication.translate("main_window", u"MainWindow", None))
         self.today.setText(QCoreApplication.translate("main_window", u"Today", None))
-        self.left_arrow.setText(QCoreApplication.translate("main_window", u"PushButton", None))
-        self.right_arrow.setText(QCoreApplication.translate("main_window", u"PushButton", None))
+        self.left_arrow.setText("")
+#if QT_CONFIG(shortcut)
+        self.left_arrow.setShortcut(QCoreApplication.translate("main_window", u"Left", None))
+#endif // QT_CONFIG(shortcut)
+        self.right_arrow.setText("")
+#if QT_CONFIG(shortcut)
+        self.right_arrow.setShortcut(QCoreApplication.translate("main_window", u"Right", None))
+#endif // QT_CONFIG(shortcut)
         self.done_button.setText(QCoreApplication.translate("main_window", u"Done", None))
         self.tool_bar.setWindowTitle(QCoreApplication.translate("main_window", u"toolBar", None))
     # retranslateUi

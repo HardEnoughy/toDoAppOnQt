@@ -1,9 +1,11 @@
-from PySide6.QtWidgets import QMainWindow, QApplication, QPushButton
-from PySide6.QtGui import QAction
+from PySide6.QtWidgets import QMainWindow, QApplication, QPushButton 
+from PySide6.QtGui import QAction, QIcon
+from PySide6.QtCore import QSize
 from ui_to_do import Ui_main_window
 import sql_funcs_for_to_do_app as sql
 from project import Project
 from add_project import NewProject
+import rc_resource
 
 class ToDoApp(QMainWindow, Ui_main_window):
     """main window class"""
@@ -39,6 +41,22 @@ class ToDoApp(QMainWindow, Ui_main_window):
         self.add_new_project_action.triggered.connect(self.create_new_project)
         self.refresh_projects_action.triggered.connect(self.refresh_project_tab)
         self.delete_project_action.triggered.connect(self.delete_project)
+
+        #icons for toolbar
+        new_task_icon = QIcon()
+        new_task_icon.addFile(u":/images/plus.png", QSize(), QIcon.Normal, QIcon.Off)
+        new_project_icon = QIcon()
+        new_project_icon.addFile(u":/images/folder.png", QSize(), QIcon.Normal, QIcon.Off)
+        refresh_icon = QIcon()
+        refresh_icon.addFile(u":/images/refresh.png", QSize(), QIcon.Normal, QIcon.Off)
+        delete_icon = QIcon()
+        delete_icon.addFile(u":/images/delete_task.png", QSize(), QIcon.Normal, QIcon.Off)
+
+        #set icons
+        self.add_new_project_action.setIcon(new_project_icon)
+        self.add_new_task_action.setIcon(new_task_icon)
+        self.refresh_projects_action.setIcon(refresh_icon)
+        self.delete_project_action.setIcon(delete_icon)
     
     def print_something(self):
         print("Some sort of griberish")
@@ -88,7 +106,10 @@ class ToDoApp(QMainWindow, Ui_main_window):
     def finish_task(self):
         """removes task from database"""
         titles = self.project.get_tasks_titles()
-        self.current_id = sql.SqlFuncs(self.name).get_one_id(titles[self.index][0])[0][0]
+        try:
+            self.current_id = sql.SqlFuncs(self.name).get_one_id(titles[self.index][0])[0][0]
+        except:
+            return
         print(self.current_id)
         sql.SqlFuncs(self.name).remove_task(self.current_id)
         self.show_task()

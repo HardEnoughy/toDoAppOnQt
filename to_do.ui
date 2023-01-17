@@ -44,7 +44,17 @@
          <item>
           <widget class="QPushButton" name="left_arrow">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="resource.qrc">
+             <normaloff>:/images/left_arrow.png</normaloff>:/images/left_arrow.png</iconset>
+           </property>
+           <property name="shortcut">
+            <string>Left</string>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -58,7 +68,17 @@
          <item>
           <widget class="QPushButton" name="right_arrow">
            <property name="text">
-            <string>PushButton</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="resource.qrc">
+             <normaloff>:/images/right_arrow.png</normaloff>:/images/right_arrow.png</iconset>
+           </property>
+           <property name="shortcut">
+            <string>Right</string>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -97,6 +117,8 @@
    </attribute>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
 </ui>
