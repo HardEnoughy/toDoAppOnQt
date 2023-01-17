@@ -1,6 +1,7 @@
 import sql_funcs_for_to_do_app as sql
 
 class Task():
+    """class for task management"""
     def __init__(self, id, name, text, project):
         self.task_id = id
         self.task_name = name

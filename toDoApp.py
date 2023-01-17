@@ -6,6 +6,7 @@ from project import Project
 from add_project import NewProject
 
 class ToDoApp(QMainWindow, Ui_main_window):
+    """main window class"""
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -43,6 +44,7 @@ class ToDoApp(QMainWindow, Ui_main_window):
         print("Some sort of griberish")
     
     def delete_project(self):
+        """removes table from database"""
         if self.name != 'today':
             data = sql.SqlFuncs(self.name)
             data.delete_project_table()
@@ -52,6 +54,7 @@ class ToDoApp(QMainWindow, Ui_main_window):
             self.show_task()
     
     def show_task(self):
+        """shows tasks if there is any"""
         try:
             self.project = Project(self.name)
             text = self.project.get_tasks_texts()[self.index][0]
@@ -69,17 +72,21 @@ class ToDoApp(QMainWindow, Ui_main_window):
                 self.show_blank_page()
     
     def next_task(self):
+        """calls next task if there is any"""
         self.index += 1
         self.show_task()
 
     def previous_task(self):
+        """calls previous task if there is any"""
         self.index -= 1
         self.show_task()
     
     def open_add_task_widget(self):
+        """add task window"""
         self.project.show()
     
     def finish_task(self):
+        """removes task from database"""
         titles = self.project.get_tasks_titles()
         self.current_id = sql.SqlFuncs(self.name).get_one_id(titles[self.index][0])[0][0]
         print(self.current_id)
@@ -87,14 +94,17 @@ class ToDoApp(QMainWindow, Ui_main_window):
         self.show_task()
     
     def show_blank_page(self):
+        """blank page if there is no tasks"""
         self.task_title.setText('')
         self.task_window.setText('')
     
     def create_new_project(self):
+        """creates new table"""
         self.window = NewProject()
         self.window.show() 
     
     def refresh_project_tab(self):
+        """adding new buttons(if there is any) on project list"""
         projects = sql.SqlFuncs(self.name).get_projects_names()
         if len(projects) > 1:
             for i in range(0, len(projects)):
@@ -106,6 +116,7 @@ class ToDoApp(QMainWindow, Ui_main_window):
                 self.projects_list.append(projects[i][0])
     
     def change_current_project(self):
+        """changes table"""
         button = self.sender()
         self.name = button.text().lower()
         self.show_task()

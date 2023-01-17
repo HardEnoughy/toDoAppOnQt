@@ -4,6 +4,7 @@ from task import Task
 import sql_funcs_for_to_do_app as sql
 
 class Project(QWidget, Ui_add_task_widget):
+    """This class manages projects tables and also setting up task add window"""
     def __init__(self, name):
         super().__init__()
         self.setupUi(self)
@@ -31,6 +32,7 @@ class Project(QWidget, Ui_add_task_widget):
         return id[-1][0] if id else 0
     
     def setup_project_list(self):
+        """give to combo box task titles"""
         projects = self.data.get_projects_names()
         print(projects)
         for project in projects:
@@ -40,6 +42,7 @@ class Project(QWidget, Ui_add_task_widget):
         self.close()
     
     def add_task(self):
+        """sends info to task class for adding to database"""
         task_name = self.task_title.text()
         task_text = self.task_text_edit.toPlainText()
         self.name = self.project_list.currentText()
